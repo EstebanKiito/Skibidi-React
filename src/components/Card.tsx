@@ -1,9 +1,11 @@
+import { ReactNode } from "react";
+
 interface CardProps {
-  body: string; // Definimos que el body es un string
+  children: ReactNode; // Children es una propiedad especial de React que permite pasar contenido dentro del componente
 }
 
 function Card(props: CardProps) {
-  const { body } = props; // Recomendado Destructuring
+  const { children } = props; // Recomendado Destructuring
   // porque asi sabremos que propiedades estamos teniendo
 
   return (
@@ -14,7 +16,7 @@ function Card(props: CardProps) {
         width: "350px",
       }}
     >
-      <div className="card-body">{body}</div>
+      <div className="card-body">{children}</div>
     </div>
   );
 }
