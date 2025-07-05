@@ -2,22 +2,22 @@ import { ReactNode } from "react";
 
 type Props = {
   children: ReactNode; // Children es una propiedad especial de React que permite pasar contenido dentro del componente:
-  isLoading: boolean; // Propiedad para indicar si el botón está en estado de carga
+  isLoading?: boolean; // Propiedad para indicar si el botón está en estado de carga
   onClick: () => void;
 
   // <Button isLoading={isLoading} onClick={handleClick}> Hola Mundo  </Button>
 };
 
-function Button({ children, isLoading, onClick }: Props) {
+function Button({ children, onClick }: Props) {
   return (
     <button
       onClick={onClick}
-      disabled={isLoading}
+      //disabled={isLoading}
       type="button"
-      className={`btn btn-${!isLoading ? "primary" : "secondary"}`}
-      //className={!isLoading ? "btn btn-primary" : "btn btn-secondary"}
+      //className={`btn btn-${!isLoading ? "primary" : "secondary"}`}
+      className={`btn btn-primary`}
     >
-      {!isLoading ? children : "Loading..."}
+      {children}
     </button>
   );
 }

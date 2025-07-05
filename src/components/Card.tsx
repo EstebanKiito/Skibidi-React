@@ -22,7 +22,7 @@ function Card(props: CardProps) {
 }
 
 interface CardBodyProps {
-  title: string;
+  title?: string;
   text?: string; // El ? indica que es opcional
 }
 
