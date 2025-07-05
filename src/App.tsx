@@ -9,10 +9,19 @@ function App() {
   const handleSelect = (elemento: string) => {
     console.log("Elemento seleccionado:", elemento);
   };
+
+  // RENDERIZADO CONDICIONAL:
+  // 2 formas: (? - :) o (&&) -> && toma 0 como true!
+  //const contenido = list.length !== 0 && (
+  //  <List data={list} onSelect={handleSelect} /> );
+
+  //  CONDICIONALES PEQUEÑOS: dentro del codigo
+
   return (
     <Card>
       <CardBody title="Hola Mundo" text="texto del componente" />
-      <List data={list} onSelect={handleSelect} />
+      {/* {contenido} */}
+      {list.length !== 0 && <List data={list} onSelect={handleSelect} />}
     </Card>
   );
 }
