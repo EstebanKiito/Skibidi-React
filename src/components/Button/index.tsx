@@ -1,4 +1,6 @@
 import { ReactNode } from "react";
+//import "./Button.module.css"; // Importamos el CSS del botón (MODULO CSS)
+import styles from "./Button.module.css";
 
 type Props = {
   children: ReactNode; // Children es una propiedad especial de React que permite pasar contenido dentro del componente:
@@ -7,15 +9,20 @@ type Props = {
 
   // <Button isLoading={isLoading} onClick={handleClick}> Hola Mundo  </Button>
 };
-
+console.log(styles); // Esto nos muestra el objeto de estilos que se genera al importar el CSS
 function Button({ children, onClick }: Props) {
   return (
     <button
       onClick={onClick}
       //disabled={isLoading}
       type="button"
+      // CLASE CSS: tiene que ser clase CSS y no html (div button h1) -> .div .button .h1 son CSS
+
+      //className={styles.button}
+      className={[styles.button, styles.padded].join(" ")} // MIXING STYLES
+
       //className={`btn btn-${!isLoading ? "primary" : "secondary"}`}
-      className={`btn btn-primary`}
+      //className={`btn btn-primary`}
     >
       {children}
     </button>

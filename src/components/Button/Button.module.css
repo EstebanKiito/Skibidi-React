@@ -1,0 +1,15 @@
+.button {
+  background-color: red;
+}
+
+/* Con el .button se crea una propiedad dentro del objeto de styles que esa va a tener las propiedades
+/* Sin el .button se modifica todos los botones existentes
+Esto lo hacemos para no hacer chocar CSS's entre elementos del DOM
+class = "_button_1a2b3c4d"  // Asi se ve la clase en el DOM (agrega un hash al final para evitar conflictos)
+
+
+Mixing Styles
+*/
+.padded {
+  padding: 25px 30px;
+}

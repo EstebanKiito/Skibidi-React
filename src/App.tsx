@@ -1,7 +1,7 @@
 // import Card from "./components/Card";
 import Card, { CardBody } from "./components/Card";
 import List from "./components/List";
-import Button from "./components/Button";
+import Button from "./components/Button"; // Si buscamos dentro de button, index es el archivo que importara por defecto
 import { useState } from "react";
 
 function App() {
