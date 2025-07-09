@@ -1,0 +1,19 @@
+.alert {
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.alertPrimary {
+  background-color: red;
+  color: white;
+  border-color: darkred;
+}
+
+.alertSecondary {
+  background-color: blue;
+  color: white;
+  border-color: darkred;
+}
