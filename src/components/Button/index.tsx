@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 //import "./Button.module.css"; // Importamos el CSS del botón (MODULO CSS)
 import styles from "./Button.module.css";
+import { FaRegThumbsUp } from "react-icons/fa";
 
 type Props = {
   children: ReactNode; // Children es una propiedad especial de React que permite pasar contenido dentro del componente:
@@ -25,6 +26,7 @@ function Button({ children, onClick }: Props) {
       //className={`btn btn-primary`}
     >
       {children}
+      <FaRegThumbsUp color="blue" size="20" />
     </button>
   );
 }
