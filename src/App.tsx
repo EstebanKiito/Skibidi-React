@@ -7,32 +7,26 @@ import { useState } from "react";
  */
 
 function App() {
-  let numero = 0; // Esto siempre se reinicializa a 0 cada vez que se renderiza el componente
-  // Mejor usar useState (por si queremos tener ese valor en cada componente)
+  const [prodcuts, setProducts] = useState([{ name: "Iphone" }]);
+  const handleClick = () => {
+    //prodcuts.push({ name: "Samsung" }); // Metodo Mutable: Toma la variable de products y la modifica directamente
+    // El hook detecta cuando le pasamos una referencia nueva
+    // No si modificamos el objeto directamente
+    //1. let newProducts = prodcuts.concat({ name: "Xiaomi" }); // Metodo Inmutable: Crea una nueva referencia
+    //2. let newProducts = [...prodcuts, { name: "Xiaomi" }]; // Metodo Inmutable: Crea una nueva referencia
+    setProducts((prevState) => [...prevState, { name: "Xiaomi" }]); // Metodo Inmutable: Crea una nueva referencia
+  };
 
-  // --- Combinar Estados ---
-  const [user, setUser] = useState({
-    name: "Esteban",
-    lastName: "Pro",
-    age: 20,
-  });
-
-  const [shape, setShape] = useState({
-    width: 100,
-    height: 100,
-    x: 25,
-    y: 150,
-  });
-
-  console.log("Renderizando..."); // 2 veces en caso de que se use StrictMode en main.tsx
-  const [count, setCount] = useState(0);
-  const handleCount = () => {
-    numero++;
-    setCount(count + 1);
-    console.log("Count: ", count, numero); // No se actualizara aun / numero siempre sera 1
-  }; // Luego de terminar la funcion, se seteara el valor
-
-  return <button onClick={handleCount}>Enviar</button>;
+  return (
+    <div>
+      <button onClick={handleClick}>Enviar</button>;
+      <ul>
+        {prodcuts.map((prodcuts) => (
+          <li key={prodcuts.name}>{prodcuts.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 export default App;
