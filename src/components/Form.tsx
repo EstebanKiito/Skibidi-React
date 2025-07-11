@@ -1,21 +1,17 @@
-import React, { FormEvent, useRef } from "react";
+import React, { FormEvent, useState } from "react";
 
 type Props = {};
 
 function Form({}: Props) {
-  // 1. UNCONTROLLED COMPONENT: React no sabra el estado hasta el submit
+  // 2. CONTROLLED COMPONENT: El valor del input es controlado por el estado de React
+  // Siempre deberemos añadir 2 propiedades a los inputs: value y onChange
+  // Esto se puede mejorar con bibliotecas!
 
-  const nameRef = useRef<HTMLInputElement>(null);
-  const lastnameRef = useRef<HTMLInputElement>(null);
+  const [user, setUser] = useState({ name: "", lastname: "" });
 
   const handleSubmit = (event: FormEvent) => {
-    event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
-    const user = {
-      name: nameRef.current?.value,
-      lastname: lastnameRef.current?.value,
-      // current? es para acceder al valor del input si es que existe
-    };
-    console.log("Usuario:", user);
+    event.preventDefault();
+    console.log(user);
   };
 
   return (
@@ -24,14 +20,21 @@ function Form({}: Props) {
         <label htmlFor="name" className="form-label">
           Nombre
         </label>
-        <input ref={nameRef} type="text" id="name" className="form-control" />
+        <input
+          value={user.name} // Esto porque es un componente controlado
+          onChange={(e) => setUser({ ...user, name: e.target.value })}
+          type="text"
+          id="name"
+          className="form-control"
+        />
       </div>
       <div className="mb-3">
         <label htmlFor="lastname" className="form-label">
           Apellido
         </label>
         <input
-          ref={lastnameRef}
+          value={user.lastname} // Esto porque es un componente controlado
+          onChange={(e) => setUser({ ...user, lastname: e.target.value })}
           type="text"
           id="lastname"
           className="form-control"
