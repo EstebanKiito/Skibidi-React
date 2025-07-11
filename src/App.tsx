@@ -1,4 +1,7 @@
 import { useState } from "react";
+import ProductDashboard from "./components/ProductDashboard.tsx";
+import ProductList from "./components/ProductList.tsx";
+import Button from "./components/Button.tsx";
 
 /** ---- PASOS ----
  * 1. Envia la instruccion a React
@@ -7,43 +10,26 @@ import { useState } from "react";
  */
 
 function App() {
-  const [product, setProduct] = useState([
+  const [products, setProducts] = useState([
     {
       id: 1,
       name: "iPhone",
     },
-    {
-      id: 2,
-      name: "Samsung",
-    },
   ]);
   const handleClick = () => {
-    // --- ARRAYS ---
+    // ---- Separando Componentes (Y sus Estados)----
 
-    // 1. Agrega al final
-    //const newProduct = [...product, { id: 2, name: "Android" }];
+    // Donde vive el estado es donde debemos definir las acciones que lo modifican
 
-    // 2. Agrega al inicio
-    //const newProduct = [{ id: 2, name: "Android" }, ...product];
-
-    // 3. --- Modificar Array ---
-    const newProduct = product.map((p) =>
-      p.id === 1 ? { ...p, name: "Windows" } : p
-    );
-
-    // 4. --- Eliminar de Array ---
-    const newProducts = product.filter((p) => p.id !== 1);
-    setProduct(newProduct);
+    const newProduct = [...products, { id: 2, name: "Android" }];
+    setProducts(newProduct);
   };
 
   return (
     <div>
-      <button onClick={handleClick}>Agregar</button>
-      <ul>
-        {product.map((p) => (
-          <li key={p.id}>{p.name}</li>
-        ))}
-      </ul>
+      <ProductDashboard amount={products.length} />
+      <Button onClick={handleClick}>Enviar</Button>
+      <ProductList products={products} />
     </div>
   );
 }
