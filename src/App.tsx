@@ -7,12 +7,21 @@ import { useState } from "react";
  */
 
 function App() {
-  const [prodcut, setProduct] = useState({ name: "Iphone", stock: 10 });
+  const [prodcut, setProduct] = useState({
+    name: "Iphone",
+    stock: 10,
+    adress: {
+      city: "Madrid",
+      country: "Spain",
+    },
+  });
   const handleClick = () => {
-    // --- ACTUALIZANDO OBJETOS ---
+    // --- Propiedades Anidadas ---
 
-    //prodcut.name = "Samsung"; // Mutacion: Modifica el objeto original
-    const newProduct = { ...prodcut, name: "Samsung" }; // Copia el objeto y modifica el nombre
+    const newProduct = {
+      ...prodcut,
+      adress: { ...prodcut.adress, city: "Barcelona" },
+    };
 
     setProduct(newProduct); // Metodo Inmutable: Crea una nueva referencia
   };
@@ -21,7 +30,7 @@ function App() {
     <div>
       <button onClick={handleClick}>Agregar</button>
       <p>
-        {prodcut.name} , {prodcut.stock}
+        {prodcut.name} , {prodcut.stock}, {prodcut.adress.city}
       </p>
     </div>
   );
