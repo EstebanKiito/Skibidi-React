@@ -7,31 +7,43 @@ import { useState } from "react";
  */
 
 function App() {
-  const [prodcut, setProduct] = useState({
-    name: "Iphone",
-    stock: 10,
-    adress: {
-      city: "Madrid",
-      country: "Spain",
+  const [product, setProduct] = useState([
+    {
+      id: 1,
+      name: "iPhone",
     },
-  });
+    {
+      id: 2,
+      name: "Samsung",
+    },
+  ]);
   const handleClick = () => {
-    // --- Propiedades Anidadas ---
+    // --- ARRAYS ---
 
-    const newProduct = {
-      ...prodcut,
-      adress: { ...prodcut.adress, city: "Barcelona" },
-    };
+    // 1. Agrega al final
+    //const newProduct = [...product, { id: 2, name: "Android" }];
 
-    setProduct(newProduct); // Metodo Inmutable: Crea una nueva referencia
+    // 2. Agrega al inicio
+    //const newProduct = [{ id: 2, name: "Android" }, ...product];
+
+    // 3. --- Modificar Array ---
+    const newProduct = product.map((p) =>
+      p.id === 1 ? { ...p, name: "Windows" } : p
+    );
+
+    // 4. --- Eliminar de Array ---
+    const newProducts = product.filter((p) => p.id !== 1);
+    setProduct(newProduct);
   };
 
   return (
     <div>
       <button onClick={handleClick}>Agregar</button>
-      <p>
-        {prodcut.name} , {prodcut.stock}, {prodcut.adress.city}
-      </p>
+      <ul>
+        {product.map((p) => (
+          <li key={p.id}>{p.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }
