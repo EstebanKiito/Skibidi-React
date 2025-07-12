@@ -1,30 +1,27 @@
 import { useForm } from "react-hook-form";
-import { userSchema } from "../schemas/user.ts";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { userSchema, userForm } from "../schemas/user.ts";
 
-type Form = {
-  name: string;
-  lastname: string;
-};
+//type Form = {
+//  name: string;
+//  lastname: string;
+//};
 
 function Form() {
-  // ---- REACT HOOK FORM ----: npm install react-hook-form (use la 7.51.3)
+  // ---- ZOD RESOLVER ---- npm i @hookform/resolvers@3.3.4
 
   //const form = useForm();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Form>(); // Le damos el tipo de datos que vamos a manejar en el form
+  } = useForm<userForm>({
+    resolver: zodResolver(userSchema), // Usamos Zod para validar el formulario
+  });
 
   //console.log(register("name"));
   // console.log(formState.errors);
-  const onSubmit = (data: Form) => {
-    try {
-      const x = userSchema.parse(data); // Validamos los datos del formulario con Zod
-      console.log(x);
-    } catch (e) {
-      console.error(e);
-    }
+  const onSubmit = (data: userForm) => {
     console.log(data);
   };
 
@@ -41,6 +38,7 @@ function Form() {
           id="name"
           className="form-control"
         />
+        {errors?.name?.message ?? <p>{errors?.name?.message}</p>}
       </div>
       <div className="mb-3">
         <label htmlFor="lastname" className="form-label">
@@ -52,6 +50,7 @@ function Form() {
           id="lastname"
           className="form-control"
         />
+        {errors?.lastname?.message ?? <p>{errors?.lastname?.message}</p>}
       </div>
       <button className="btn btn-primary">Enviar</button>
     </form>
