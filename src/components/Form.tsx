@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { userSchema } from "../schemas/user.ts";
 
 type Form = {
   name: string;
@@ -18,6 +19,12 @@ function Form() {
   //console.log(register("name"));
   // console.log(formState.errors);
   const onSubmit = (data: Form) => {
+    try {
+      const x = userSchema.parse(data); // Validamos los datos del formulario con Zod
+      console.log(x);
+    } catch (e) {
+      console.error(e);
+    }
     console.log(data);
   };
 
@@ -29,32 +36,22 @@ function Form() {
           Nombre
         </label>
         <input
-          {...register("name", {
-            minLength: {
-              value: 3,
-              message: "El nombre debe tener al menos 3 caracteres",
-            },
-          })}
+          {...register("name")}
           type="text"
           id="name"
           className="form-control"
         />
-        {errors?.name && <p>{errors?.name?.message}</p>}
       </div>
       <div className="mb-3">
         <label htmlFor="lastname" className="form-label">
           Apellido
         </label>
         <input
-          {...register("lastname", {
-            validate: (valor) =>
-              valor.length < 4 ? "Largo minimo 3 caracteres" : true,
-          })} // Con esto registramos los campos del form, falta obtener los valores
+          {...register("lastname")}
           type="text"
           id="lastname"
           className="form-control"
         />
-        {errors?.lastname && <p>{errors?.lastname?.message}</p>}
       </div>
       <button className="btn btn-primary">Enviar</button>
     </form>
