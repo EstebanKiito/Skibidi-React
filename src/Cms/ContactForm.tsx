@@ -14,6 +14,11 @@ function ContactForm({}: Props) {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
         <Input name="name">Nombre</Input>
+        <Input name="lastname">Apellido</Input>
+        <Input name="email">Correo</Input>
+        <button type="submit" className="btn btn-primary">
+          Enviar
+        </button>
       </form>
     </FormProvider>
   );

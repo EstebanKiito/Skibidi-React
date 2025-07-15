@@ -17,7 +17,8 @@ function Input({ name, children }: Props) {
       </label>
       <input
         //{...methods.register("name")} // Registramos el campo "name" -> Aqui no tenemos methods!
-        {...register("name")}
+        //{...register("name")} -> Con esto no se guardan los datos
+        {...register(name)}
         type="text"
         className="form-control"
         id={name}
