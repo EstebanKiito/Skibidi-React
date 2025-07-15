@@ -4,9 +4,11 @@ import Button from "./Button";
 import { Contact, contactSchema } from "../schemas/Contact.tsx";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-type Props = {};
+type Props = {
+  onSubmit: (contact: Contact) => void;
+};
 
-function ContactForm({}: Props) {
+function ContactForm({ onSubmit }: Props) {
   // 1. Añadimos React Hook Form
   // 2. Conectar Zod con el Formulario : Pasar el tipo
   // 3. Pasar el objeto Resolver de Zod a useForm
@@ -19,7 +21,7 @@ function ContactForm({}: Props) {
   // 2. Hacer destructuring de methods
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
         <Input name="name">Nombre</Input>
         <Input name="lastname">Apellido</Input>
         <Input name="email">Correo</Input>
