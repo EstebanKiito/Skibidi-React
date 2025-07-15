@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 // PRO TIP: Definir los tipos de variantes
 type variant = "primary" | "secondary" | "warning";

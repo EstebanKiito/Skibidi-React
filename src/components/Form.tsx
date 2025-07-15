@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { userSchema, userForm } from "../schemas/user.ts";
+import { userSchema, userForm } from "../schemas-2/user.ts";
 
 //type Form = {
 //  name: string;
