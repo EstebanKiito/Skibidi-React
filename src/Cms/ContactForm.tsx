@@ -1,5 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "./Input";
+import Button from "./Button";
 
 type Props = {};
 
@@ -16,9 +17,7 @@ function ContactForm({}: Props) {
         <Input name="name">Nombre</Input>
         <Input name="lastname">Apellido</Input>
         <Input name="email">Correo</Input>
-        <button type="submit" className="btn btn-primary">
-          Enviar
-        </button>
+        <Button>Enviar</Button>
       </form>
     </FormProvider>
   );
