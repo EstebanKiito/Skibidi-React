@@ -1,5 +1,12 @@
 import { z } from "zod";
 
+export const contactTypeOptions = [
+  "Familiar",
+  "Trabajo",
+  "Amigo",
+  "Otro",
+] as const;
+
 export const contactSchema = z.object({
   name: z
     .string()
@@ -10,6 +17,7 @@ export const contactSchema = z.object({
     .min(1, { message: "Apellido es requerido" })
     .min(3, { message: "Longitud minima 3" }),
   email: z.string().min(1, { message: "Correo es requerido" }),
+  type: z.enum(contactTypeOptions),
 });
 
 // Inferir tipo de contactos
