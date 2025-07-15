@@ -1,12 +1,18 @@
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "./Input";
 import Button from "./Button";
+import { Contact, contactSchema } from "../schemas/Contact";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type Props = {};
 
 function ContactForm({}: Props) {
-  // Añadimos React Hook Form
-  const methods = useForm();
+  // 1. Añadimos React Hook Form
+  // 2. Conectar Zod con el Formulario : Pasar el tipo
+  // 3. Pasar el objeto Resolver de Zod a useForm
+  const methods = useForm<Contact>({
+    resolver: zodResolver(contactSchema),
+  });
 
   //Agregar provider en el componente padre:
   // 1. Shift+ctrl+p : Envolver todo con FormProvider
