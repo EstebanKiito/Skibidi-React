@@ -1,7 +1,7 @@
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "./Input";
 import Button from "./Button";
-import { Contact, contactSchema } from "../schemas/Contact";
+import { Contact, contactSchema } from "../schemas/Contact.tsx";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 type Props = {};

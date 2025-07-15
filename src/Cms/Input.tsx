@@ -7,8 +7,10 @@ type Props = {
 };
 
 function Input({ name, children }: Props) {
-  const { register } = useFormContext(); // Obtenemos el contexto del formulario
-  // Ahora agregar provider en el componente padre
+  const { register, formState, getFieldState } = useFormContext(); // Obtenemos el contexto del formulario
+  // 1. Ahora agregar provider en el componente padre (ConctactForm.tsx)
+  // 2. Mostrar mensajes de error: formState y getFieldState
+  const { error } = getFieldState(name, formState);
 
   return (
     <div className="mb-3">
@@ -23,6 +25,7 @@ function Input({ name, children }: Props) {
         className="form-control"
         id={name}
       />
+      {error?.message && <div className="text-danger">{error.message}</div>}
     </div>
   );
 }

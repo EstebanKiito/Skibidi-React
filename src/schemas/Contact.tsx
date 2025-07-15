@@ -5,14 +5,11 @@ export const contactSchema = z.object({
     .string()
     .min(1, { message: "Nombre es requerido" })
     .min(3, { message: "Longitud minima 3" }),
-  lastmame: z
+  lastname: z
     .string()
     .min(1, { message: "Apellido es requerido" })
     .min(3, { message: "Longitud minima 3" }),
-  email: z
-    .string()
-    .min(1, { message: "Correo es requerido" })
-    .email({ message: "Correo no valido" }), // Validacion de email de zod
+  email: z.string().min(1, { message: "Correo es requerido" }),
 });
 
 // Inferir tipo de contactos
