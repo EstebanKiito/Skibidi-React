@@ -4,10 +4,14 @@ function App() {
   // 1. Primero se renderiza el componente
   // 2. Luego de manera asincrona se ejecuta el useEffect
 
+  // 3. Limpieza: con una funcion anonima
   useEffect(() => {
-    console.log("dentro de useEffect"); // Ultimo
+    console.log("cargando usuarios..."); // Ultimo
+
+    return () => {
+      console.log("limpieza: Cancelar carga");
+    };
   });
-  console.log("fuera de useEffect"); // Primero
 
   return <div>Hello, World!</div>;
 }
