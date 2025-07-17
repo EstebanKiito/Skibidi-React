@@ -1,24 +1,33 @@
 import { useEffect, useState } from "react";
 
+type User = {
+  id: string;
+  name: string;
+};
 function App() {
-  // 1. Primero se renderiza el componente
-  // 2. Luego de manera asincrona se ejecuta el useEffect
-
-  // 3. Limpieza: con una funcion anonima
-
-  // 4. Dependencias: Debo añadir [] para que se ejecute una sola vez, si no, se queda en un loop de renderizacion infinito
-  const [token, setToken] = useState<string>();
+  // Promesas + Consumo API
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
-    console.log("Buscando algo con el Token:", token);
-  }, [token]); // Aqui le doy que variable quiero que escuche, y vuelva a ejecutar el useEffect cuando cambie!
+    const url = "https://jsonplaceholder.typicode.com/users";
 
-  console.log(token);
+    // fetch + then (sin async await)
+    fetch(url)
+      .then((response) => {
+        return response.json() as Promise<User[]>;
+      })
+      .then((data) => {
+        setUsers(data);
+        console.log(data);
+      });
+  }, []);
 
   return (
-    <div>
-      <button onClick={() => setToken("mi_token")}>Obtener Token</button>
-    </div>
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
   );
 }
 
