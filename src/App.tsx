@@ -7,16 +7,19 @@ function App() {
   // 3. Limpieza: con una funcion anonima
 
   // 4. Dependencias: Debo añadir [] para que se ejecute una sola vez, si no, se queda en un loop de renderizacion infinito
-  const [users, setUsers] = useState<string[]>();
+  const [token, setToken] = useState<string>();
 
   useEffect(() => {
-    console.log("Llamando al servidor...");
-    const data = ["Esteban", "Daniel"];
-    setUsers(data);
-    //}); -> Sin el argumento de dependencias, se ejecuta en cada renderizado
-  }, []);
+    console.log("Buscando algo con el Token:", token);
+  }, [token]); // Aqui le doy que variable quiero que escuche, y vuelva a ejecutar el useEffect cuando cambie!
 
-  return <div>Hello, World!</div>;
+  console.log(token);
+
+  return (
+    <div>
+      <button onClick={() => setToken("mi_token")}>Obtener Token</button>
+    </div>
+  );
 }
 
 export default App;
