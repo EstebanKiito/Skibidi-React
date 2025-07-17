@@ -17,7 +17,9 @@ export const contactSchema = z.object({
     .min(1, { message: "Apellido es requerido" })
     .min(3, { message: "Longitud minima 3" }),
   email: z.string().min(1, { message: "Correo es requerido" }),
-  type: z.enum(contactTypeOptions),
+  type: z.enum(contactTypeOptions, {
+    errorMap: () => ({ message: "Seleccione Tipo" }),
+  }),
 });
 
 // Inferir tipo de contactos
