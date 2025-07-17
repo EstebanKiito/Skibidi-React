@@ -36,7 +36,14 @@ function ContactForm({ onSubmit }: Props) {
           defaultMessage="-- Selecciona Tipo --"
           options={contactTypeOptions}
         />
-        <Button>Enviar</Button>
+        <Button type="submit">Enviar</Button>
+        <Button
+          variant="secondary"
+          type="button"
+          onClick={() => methods.reset()}
+        >
+          Limpiar
+        </Button>
       </form>
     </FormProvider>
   );
