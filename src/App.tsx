@@ -1,7 +1,5 @@
-import CMS from "./Cms/CMS.tsx";
-
 function App() {
-  return <CMS />;
+  return <div>Hello, World!</div>;
 }
 
 export default App;
