@@ -1,7 +1,7 @@
 import useHtmlData from "./hooks/useHtmlData";
 
 type User = {
-  id?: string;
+  id?: string | number;
   name: string;
 };
 
@@ -12,6 +12,7 @@ function App() {
     cargando,
     error,
     addData: addUser,
+    deleteData: deleteUser,
   } = useHtmlData<User>(url);
 
   if (error && !cargando) {
@@ -28,6 +29,7 @@ function App() {
       <button onClick={() => addUser({ name: "Esteban Ortega" })}>
         Añadir
       </button>
+      <button onClick={() => deleteUser(1)}>Eliminar</button>
       {users.map((user) => (
         <li key={user.id}>{user.name}</li>
       ))}

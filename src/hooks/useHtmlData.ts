@@ -2,7 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-export default function useHtmlData<T>(url: string) {
+type ID = {
+  id?: string | number; // Propiedad opcional para permitir que T tenga un id
+};
+
+export default function useHtmlData<T extends ID>(url: string) {
   // Añadir Users con POST
 
   const [data, setData] = useState<T[]>([]);
@@ -69,5 +73,22 @@ export default function useHtmlData<T>(url: string) {
     }
   };
 
-  return { data, cargando, error, addData };
+  const deleteData = async (id: string | number) => {
+    const initialData = [...data];
+    setData(data.filter((x) => x.id !== id)); // Propiedad de id no existe en T, por lo que no se puede usar directamente
+    // Tendremos que extender T para que tenga una propiedad id
+    try {
+      const response = await fetch(`${url}/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        setData(initialData); // Revertimos al estado inicial si la petición falla
+        throw new Error(`${response.status}`);
+      }
+    } catch (error) {
+      setError((error as Error).message);
+    }
+  };
+
+  return { data, cargando, error, addData, deleteData };
 }
