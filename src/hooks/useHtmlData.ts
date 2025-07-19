@@ -90,5 +90,23 @@ export default function useHtmlData<T extends ID>(url: string) {
     }
   };
 
-  return { data, cargando, error, addData, deleteData };
+  const updateData = async (updatedElement: T) => {
+    // Seguiremos con Optimistic UI
+    const initialData = [...data];
+    setData(data.map((x) => (x.id == updatedElement.id ? updatedElement : x)));
+    try {
+      const response = await fetch(`${url}/${updatedElement.id}`, {
+        method: "PUT", // o PATCH dependiendo de la API
+      });
+
+      if (!response.ok) {
+        setData(initialData);
+        throw new Error(`${response.status}`);
+      }
+    } catch (error) {
+      setError((error as Error).message);
+    }
+  };
+
+  return { data, cargando, error, addData, deleteData, updateData };
 }

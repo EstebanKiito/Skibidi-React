@@ -13,6 +13,7 @@ function App() {
     error,
     addData: addUser,
     deleteData: deleteUser,
+    updateData: updateUser,
   } = useHtmlData<User>(url);
 
   if (error && !cargando) {
@@ -30,6 +31,9 @@ function App() {
         Añadir
       </button>
       <button onClick={() => deleteUser(1)}>Eliminar</button>
+      <button onClick={() => updateUser({ id: 1, name: "Updated User" })}>
+        Actualizar
+      </button>
       {users.map((user) => (
         <li key={user.id}>{user.name}</li>
       ))}
