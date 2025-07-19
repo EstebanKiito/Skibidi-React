@@ -1,7 +1,7 @@
-import useUser from "./hooks/useUser";
+import useUsers from "./hooks/useUsers";
 
 function App() {
-  const { users, cargando, error } = useUser();
+  const { users, cargando, error } = useUsers();
 
   if (error && !cargando) {
     return <p>Error: {error}</p>;
