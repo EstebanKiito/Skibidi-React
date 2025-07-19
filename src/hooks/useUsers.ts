@@ -19,18 +19,21 @@ export default function useUsers() {
     // 2. No podemos usar async await directamente en el callback de useEffect, por
     //    lo que debemos crear una función interna para usar async await
 
+    // Cancelar hook: esto es util por ejemplo si el usuario de desconecta, ahorramos recursos al desuscribirnos de la petición.
+    const controller = new AbortController(); // Controlador para cancelar la petición si el componente se desmonta
+    const { signal } = controller; // Señal para pasar al fetch (para cancelarlo)
+
     async function hook() {
       const url = "https://jsonplaceholder.typicode.com/users";
       setCargando(true);
+
       try {
         //fetch(url)
-        const response = await fetch(url);
+        const response = await fetch(url, { signal });
         if (!response.ok) throw new Error(`${response.status}`);
-        //return response.json() as Promise<User[]>;
         const data: User[] = await response.json();
-        //.then((data) => {
-        //  setUsers(data);
         setUsers(data);
+        setError(undefined); // Limpiamos el error si la petición es exitosa
       } catch (error) {
         // error: Error nos da error ya que catch espera un any o unknown: Truco es envolver el error as Error
         setError((error as Error).message);
@@ -40,6 +43,9 @@ export default function useUsers() {
     }
 
     hook(); // Llamamos a la función interna para ejecutar el código asíncrono
+    return () => controller.abort(); // Limpiamos el efecto cancelando la petición si el componente se desmonta
+    // Por causa de Strict Mode, se ejecuta dos veces el efecto, por lo que se cancela la petición en el segundo renderizado
+    // Para evitar esto: seteamos error a undefined: setError(undefined);
   }, []);
 
   return { users, cargando, error };
