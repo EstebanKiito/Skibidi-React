@@ -2,10 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-export default function useFetchData<T>(url: string) {
-  // MEJORANDO ESTE HOOK : Users -> Data!
-  // Le pasamos el tipo de dato que queremos recibir <T> que es genérico
-  // T es User desde App.tsx
+export default function useHtmlData<T>(url: string) {
+  // Añadir Users con POST
 
   const [data, setData] = useState<T[]>([]);
   const [cargando, setCargando] = useState<boolean>(false);
@@ -19,7 +17,6 @@ export default function useFetchData<T>(url: string) {
       setCargando(true);
 
       try {
-        //fetch(url)
         const response = await fetch(url, { signal });
         if (!response.ok) throw new Error(`${response.status}`);
         const data: T[] = await response.json();
@@ -39,5 +36,38 @@ export default function useFetchData<T>(url: string) {
     // Para evitar esto: seteamos error a undefined: setError(undefined);
   }, []);
 
-  return { data, cargando, error };
+  const addData = async (elemento: T) => {
+    // Estrategia Optimistic UI:
+    // Agregar un recurso -> Cambiar el estado ->  (POST)
+    // Si algo falla, revertir el estado
+    const initialData = [...data]; // Guardamos el estado inicial para revertir en caso de error
+    setData([{ id: 0, ...elemento }, ...data]); // Agregamos el nuevo elemento al inicio del array
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(elemento),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        // Devolver estado a como estaba antes
+        setData(initialData); // Revertimos al estado inicial si la petición falla
+        throw new Error(`${response.status}`);
+      }
+
+      // Si la peticion es exitosa, nos retorna el elemento creado con un id
+      const savedData = await response.json();
+      setData([savedData, ...initialData]);
+
+      // Importante: esta api nos devuelve el objeto completo creado + el id
+      // Otras Api no hacen esto, y tendriamos que darle un ID:
+      // setData([{ id: savedData.id, ...elemento }, ...initialData]);
+    } catch (error) {
+      setError((error as Error).message);
+    }
+  };
+
+  return { data, cargando, error, addData };
 }
